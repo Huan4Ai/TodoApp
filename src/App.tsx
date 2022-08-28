@@ -45,11 +45,26 @@ export function App() {
     { title: "Eat breakfast", isComplete: false },
   ]);
 
-
   const addTodo = (title: string, isComplete: false) => {
     let newTodos = [...todos, { title, isComplete }];
     setTodos(newTodos);
-  }
+  };
+
+  const editTodo = (index: number) => {
+    let todoCopy = [...todos];
+    if (todoCopy[index].isComplete) {
+      todoCopy[index].isComplete = false;
+    } else {
+      todoCopy[index].isComplete = true;
+    }
+    setTodos(todoCopy);
+  };
+
+  const removeTodo = (index: number) => {
+    let todoCopy = [...todos];
+    todoCopy.splice(index, 1);
+    setTodos(todoCopy);
+  };
 
   return (
     <Container maxWidth="sm">
@@ -61,7 +76,12 @@ export function App() {
           <tbody>
             {todos.map((item, index) => (
               <tr key={index}>
-                <Todo item={item} />
+                <Todo
+                  item={item}
+                  index={index}
+                  editTodo={editTodo}
+                  removeTodo={removeTodo}
+                />
               </tr>
             ))}
           </tbody>
@@ -70,4 +90,7 @@ export function App() {
       </Box>
     </Container>
   );
+}
+function index(index: any, arg1: number) {
+  throw new Error("Function not implemented.");
 }
